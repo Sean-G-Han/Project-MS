@@ -62,8 +62,8 @@ public partial class TurnManager : Node
             var charTurn = Characters[i];
             if (charTurn.UpdateTurnProgress(delta))
             {
-                GD.Print($"{charTurn} is ready to act.");
-
+                GD.Print($"{charTurn.Character.Species} is ready to act.");
+                charTurn.Character.ExecuteMove();
                 charTurn.ResetTurnProgress();
             }
         }

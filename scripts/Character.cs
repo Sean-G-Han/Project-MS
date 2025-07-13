@@ -1,7 +1,8 @@
 using Godot;
 
-public class Character
+public partial class Character : RefCounted
 {
+    bool _isEnemy = false;
 
     [Export]
     public string Species { get; private set; } = "Unknown";
@@ -14,34 +15,43 @@ public class Character
         Species = species;
     }
 
-    public Character(string species, CharStat stats)
+    public Character(string species, CharStat stats, bool isEnemy = false)
     {
+        _isEnemy = isEnemy;
         Species = species;
         Stats = stats;
     }
 
-    public void ExecuteAttack(Character target, Move move)
+    public Character Attack(Character target)
     {
-
+        int damage = Stats.Attack - target.Stats.Defense;
+        damage = damage <= 0 ? 1 : damage;
+        int newHealth = target.Stats.Health - damage;
+        newHealth = newHealth < 0 ? 0 : newHealth;
+        return new Character(target.Species, CharStat.Create(
+            newHealth,
+            target.Stats.Attack,
+            target.Stats.Speed,
+            target.Stats.Defense
+        ), target._isEnemy);
     }
 
-    public Move ExecutePassiveOff(Move allyMove)
+    public void ExecuteMove()
     {
-        return allyMove;
-    }
-
-    public Move ExecutePassiveDef(Move enemyMove)
-    {
-        return enemyMove;
-    }
-
-    public Character ExecutePassiveBuff(Character ally)
-    {
-        return ally;
+        if (!_isEnemy)
+        {
+            GD.Print($"=> {Species} attacks {Global.Instance.Enemy.Species}!");
+            Global.Instance.Enemy = Attack(Global.Instance.Enemy);
+            GD.Print($"{Global.Instance.Enemy}");
+        }
+        else
+        {
+            GD.Print($"=> {Species} is an enemy and does not move.\n");
+        }
     }
 
     public override string ToString()
     {
-        return $"Entity {Species}";
+        return $"==> {Species} Stats: {Stats}";
     }
 }

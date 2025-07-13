@@ -28,6 +28,6 @@ public partial class CharStat : Resource
 
     public override string ToString()
     {
-        return $"[Stats]\nHealth: {Health}\nSpeed: {Speed}\nAttack: {Attack}\nDefense: {Defense}\n";
+        return $"\nHealth: {Health}\nSpeed: {Speed}\nAttack: {Attack}\nDefense: {Defense}\n";
     }
 }
