@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://chj0jhatfyp24"]
+
+[ext_resource type="Script" uid="uid://bplhkdif0675j" path="res://entities/Entity.cs" id="1_6e8rh"]
+[ext_resource type="Texture2D" uid="uid://k5sii3sxse1w" path="res://icon.svg" id="2_ep4xq"]
+
+[node name="Entity" type="Node2D"]
+script = ExtResource("1_6e8rh")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_ep4xq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite")
+
+[node name="StatDisplay" type="RichTextLabel" parent="."]
+offset_left = -64.0
+offset_top = 64.0
+offset_right = 64.0
+offset_bottom = 192.0

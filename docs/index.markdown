@@ -13,9 +13,9 @@ This website serves 2 purpose, as the technical documentation for Project-MS, co
 
 # Main Classes
 
-## Character
+## Entity
 
-### CharStat
+### EntityStat
 
 ### Move
 

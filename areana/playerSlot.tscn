@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://imrbeshd5xam"]
+
+[ext_resource type="Script" uid="uid://thkh45rg1pwr" path="res://areana/PlayerSlot.cs" id="1_fpw51"]
+
+[node name="PlayerSlot" type="Node2D"]
+script = ExtResource("1_fpw51")

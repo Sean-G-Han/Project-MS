@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4go627d7cqft"]
+[gd_scene load_steps=5 format=3 uid="uid://b4go627d7cqft"]
 
 [ext_resource type="Script" uid="uid://cohitol8o0mrl" path="res://World.cs" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://chj0jhatfyp24" path="res://entities/entity.tscn" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://imrbeshd5xam" path="res://areana/playerSlot.tscn" id="2_tlwt5"]
+[ext_resource type="Resource" uid="uid://bjxhyvvqiddsr" path="res://entities/EntityStatResource.tres" id="4_aqk2v"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_f3sb7")
+
+[node name="PlayerSlot" parent="." instance=ExtResource("2_tlwt5")]
+
+[node name="Entity" parent="PlayerSlot" instance=ExtResource("2_fj7yv")]
+Name = "Billy"
+Stats = ExtResource("4_aqk2v")
