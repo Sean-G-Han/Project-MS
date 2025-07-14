@@ -14,26 +14,24 @@ public enum State
     Neutral,
     Dead
 }
-public partial class Entity : Node2D
+public class Entity
 {
-    [Export]
     public string Name { get; protected set; }
-    [Export]
     public EntityType Type { get; protected set; }
-    [Export]
     public EntityStat Stats { get; protected set; }
     public Func<Entity, Entity> AttackLogic { get; set; }
     public Func<Entity, Entity> SupportLogic { get; set; }
 
     public State CurrentState { get; protected set; } = State.Neutral;
 
-    public override void _Ready()
+    public Entity(string name, EntityType type, EntityStat stats)
     {
-        AttackLogic = (target) => target;
-        SupportLogic = (target) => target;
+        Name = name;
+        Type = type;
+        Stats = stats;
+        AttackLogic = (target) => { return target; };
+        SupportLogic = (target) => { return target; };
     }
-
-    public Entity() {} 
 
     public virtual void ExecuteMove()
     {
@@ -46,6 +44,6 @@ public partial class Entity : Node2D
     }
     public override string ToString()
     {
-        return $"==> {Name} Stats: {Stats}";
+        return $"[{Name} Stats: {Stats}]";
     }
 }

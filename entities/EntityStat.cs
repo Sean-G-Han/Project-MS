@@ -1,18 +1,23 @@
 using Godot;
-
-[GlobalClass]
-public partial class EntityStat : Resource
+public partial class EntityStat
 {
-
-    [Export]
     public int Health { get; private set; } = 10;
 
-    [Export]
     public int Speed { get; private set; } = 10;
 
-    [Export]
     public int Attack { get; private set; } = 10;
 
-    [Export]
     public int Defense { get; private set; } = 10;
+
+    public EntityStat(int health, int speed, int attack, int defense)
+    {
+        Health = health;
+        Speed = speed;
+        Attack = attack;
+        Defense = defense;
+    }
+    public override string ToString()
+    {
+        return $"[Health: {Health}, Speed: {Speed}, Attack: {Attack}, Defense: {Defense}]";
+    }
 }

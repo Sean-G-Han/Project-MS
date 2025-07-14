@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class EntityTurn : RefCounted
 {
@@ -63,7 +62,6 @@ public partial class TurnManager : Node
             if (charTurn.UpdateTurnProgress(delta))
             {
                 GD.Print($"TurnManager: {charTurn.Entity} is ready to act.");
-                charTurn.Entity.ExecuteMove();
                 charTurn.ResetTurnProgress();
             }
         }
