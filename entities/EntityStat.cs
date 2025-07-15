@@ -1,4 +1,3 @@
-using Godot;
 public partial class EntityStat
 {
     public int Health { get; private set; } = 10;
@@ -19,5 +18,10 @@ public partial class EntityStat
     public override string ToString()
     {
         return $"[Health: {Health}, Speed: {Speed}, Attack: {Attack}, Defense: {Defense}]";
+    }
+
+    public string GetStatString()
+    {
+        return $"Health: {Health}\nSpeed: {Speed}\nAttack: {Attack}\nDefense: {Defense}";
     }
 }
