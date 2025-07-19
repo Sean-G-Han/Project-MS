@@ -1,4 +1,4 @@
-interface ReadableSpeed 
+public interface ReadableSpeed 
 {
   public int GetSpeed();
 }

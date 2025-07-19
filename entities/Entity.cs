@@ -31,7 +31,7 @@ public class Entity : ReadableSpeed
     {
         return $"[{Name} Stats: {Stats}]";
     }
-    public override int GetSpeed()
+    public int GetSpeed()
     {
         return Stats.Speed;
     }

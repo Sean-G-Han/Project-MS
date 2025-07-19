@@ -2,13 +2,13 @@ using Godot;
 
 public partial class EntityTurn : RefCounted
 {
-    public Entity Entity { get; private set; }
+    public ReadableSpeed E { get; private set; }
     public double TurnProgress { get; set; }
-    public int Speed => Entity.Stats.Speed;
+    public int Speed => E?.GetSpeed() ?? 0;
 
-    public EntityTurn(Entity entity)
+    public EntityTurn(ReadableSpeed entity)
     {
-        Entity = entity;
+        E = entity;
         TurnProgress = 0.0;
     }
 
@@ -22,18 +22,13 @@ public partial class EntityTurn : RefCounted
     {
         TurnProgress = 0.0;
     }
-
-    public override string ToString()
-    {
-        return $"{Entity} (Turn Progress: {TurnProgress})";
-    }
 }
 
 public partial class TurnManager : Node
 {
     public Godot.Collections.Array<EntityTurn> Entities { get; private set; }
 
-    public TurnManager(Entity[] entities)
+    public TurnManager(ReadableSpeed[] entities)
     {
         Entities = new Godot.Collections.Array<EntityTurn>();
         foreach (var entity in entities)
@@ -61,7 +56,7 @@ public partial class TurnManager : Node
             var charTurn = Entities[i];
             if (charTurn.UpdateTurnProgress(delta))
             {
-                GD.Print($"TurnManager: {charTurn.Entity} is ready to act.");
+                GD.Print($"TurnManager: {charTurn.E} is ready to act.");
                 charTurn.ResetTurnProgress();
             }
         }

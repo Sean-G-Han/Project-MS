@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class EntityNode : Node2D
+public partial class EntityNode : Node2D, ReadableSpeed
 {
     public Entity Entity { get; protected set; }
     public EntityNode()
@@ -26,5 +26,19 @@ public partial class EntityNode : Node2D
             return null;
         }
         return Entity;
+    }
+
+    public int GetSpeed()
+    {
+        return Entity?.GetSpeed() ?? 0;
+    }
+
+    public override string ToString()
+    {
+        if (Entity == null)
+        {
+            return "EntityNode with no Entity";
+        }
+        return "EntityNode:\n" + Entity.ToString();
     }
 }

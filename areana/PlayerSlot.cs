@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class PlayerSlot : Node2D
+public partial class PlayerSlot : Node2D, ReadableSpeed
 {
     // The player slot can hold a reference to an EntityNode
     public EntityNode EntityNode { get; private set; }
@@ -25,5 +25,19 @@ public partial class PlayerSlot : Node2D
             return null;
         }
         return EntityNode.GetEntity();
+    }
+
+    public int GetSpeed()
+    {
+        return EntityNode?.GetSpeed() ?? 0;
+    }
+
+    public override string ToString()
+    {
+        if (EntityNode == null)
+        {
+            return "PlayerSlot with no EntityNode";
+        }
+        return "PlayerSlot:\n" + EntityNode.ToString();
     }
 }
