@@ -27,7 +27,7 @@ Characters in front will perform their attack skills on the enemy while also tak
 
 Currently, the main architecture of each character is defined in the  UML diagram below. Each class is responsible for doing different things. EntityStat defines the character stats. Entity defines a character behaviour. PlayerSlot is responsible for the player's movement in the carousel-combat-system.
 
-![UML Diagram](https://www.plantuml.com/plantuml/png/TP312i8m44Jl-Ogb9nLQy5fww4MyYTWlM9iH2caYoIeK_7XhMIm1lIKpRsUPRPDmbCVepE05ySOzw0AsV7Nexe0rlUEKwE1baAaJbap8FgTWeSBPyOJOkI36hADKx0lQbQNoL5CVlF3W4pMAvSWIEMCHtY8gfVANN7VDv1YU-70cAq7Dgweqye-ZgJ_Sh4nkrtI4BC_DrhJmTZxa6m00)
+![UML Diagram](https://plantuml-server.kkeisuke.dev/svg/VP7B3e8m44Nt_Oe96r-1nArXWGjZs1W3Nr1XZ4rAIzhHX2Z_Rdae18chTkuzlPEPHfQueNiX6Lj0h0ZDbMTecVXS8KwGv_mYCIqHStWoWCqHgQsMArQFqOCYGTK-SmbMco_RoGvsPJegwwPfWfAJqChUH6bPvwN42Roj1xw_RizEXXraMX4NoaBOepFOIUVeK8CgHpEGhJocpv9NQ5AfoT65Vc33iicyuIi8-jm_LfCzQmyzNF9aFJ_lv_nnGEGcSb_r1W00.svg)
 
 
 # EntityStat

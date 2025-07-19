@@ -1,10 +1,16 @@
 using Godot;
 using System;
 
-public partial class PlayerSlot : Node2D, ReadableSpeed
+
+public partial class PlayerSlot : Node2D, IReadableSpeed, IEntityAccessor
 {
     // The player slot can hold a reference to an EntityNode
     public EntityNode EntityNode { get; private set; }
+    public override void _Ready()
+    {
+        SetEntityNode(GetNodeOrNull<EntityNode>("EntityNode"));
+    }
+
     public void SetEntityNode(EntityNode EntityNode)
     {
         if (EntityNode == null)
@@ -13,8 +19,16 @@ public partial class PlayerSlot : Node2D, ReadableSpeed
             return;
         }
         this.EntityNode = EntityNode;
+    }
 
-        AddChild(EntityNode);
+    public void SetEntity(Entity entity)
+    {
+        if (EntityNode == null)
+        {
+            GD.PrintErr("Cannot set Entity on a null EntityNode.");
+            return;
+        }
+        EntityNode.SetEntity(entity);
     }
 
     public Entity GetEntity()
@@ -36,8 +50,8 @@ public partial class PlayerSlot : Node2D, ReadableSpeed
     {
         if (EntityNode == null)
         {
-            return "PlayerSlot with no EntityNode";
+            return "PlayerSlot->NULL";
         }
-        return "PlayerSlot:\n" + EntityNode.ToString();
+        return "PlayerSlot->" + EntityNode.ToString();
     }
 }

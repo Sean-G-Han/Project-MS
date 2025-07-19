@@ -6,7 +6,7 @@ public enum EntityType
     Hero,
     Enemy
 }
-public class Entity : ReadableSpeed
+public class Entity : IReadableSpeed
 {
     public string Name { get; protected set; }
     public EntityType Type { get; protected set; }
@@ -22,14 +22,10 @@ public class Entity : ReadableSpeed
         AttackLogic = (target) => { return target; };
         SupportLogic = (target) => { return target; };
     }
-
-    public virtual void ExecuteMove()
-    {
-        GD.PrintErr($"{Name} has no specific move logic defined.");
-    }
+    
     public override string ToString()
     {
-        return $"[{Name} Stats: {Stats}]";
+        return $"Entity {Name}->Stats {Stats}]";
     }
     public int GetSpeed()
     {

@@ -6,11 +6,18 @@ public partial class World : Node2D
     {
         GD.Print("World is ready.");
 
-        Entity[] entities = [
-            // Example entities, replace with actual Entity creation logic
-            new Entity("Player1", EntityType.Hero, new EntityStat(100, 20, 15, 10)),
-            new Entity("Player2", EntityType.Hero, new EntityStat(80, 25, 10, 15))
+        Entity[] entityScripts = [
+            new Elf(),
+            new Orc(),
         ];
+
+        PlayerSlot[] entities = new PlayerSlot[GetChildCount()];
+
+        for (int i = 0; i < GetChildCount(); i++)
+        {
+            entities[i] = (PlayerSlot)GetChild(i);
+            entities[i].SetEntity(entityScripts[i]);
+        }
 
         TurnManager turnManager = new TurnManager(entities);
         AddChild(turnManager);
