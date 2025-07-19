@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0g3ng0ptpqji"]
+
+[ext_resource type="Script" uid="uid://c5gjasf7xduff" path="res://areana/PlayerCarousel.cs" id="1_cen6p"]
+[ext_resource type="PackedScene" uid="uid://imrbeshd5xam" path="res://areana/playerSlot.tscn" id="1_x2rbb"]
+
+[node name="PlayerCarousel" type="Node2D"]
+script = ExtResource("1_cen6p")
+
+[node name="PlayerSlot" parent="." instance=ExtResource("1_x2rbb")]
+modulate = Color(0, 1, 1, 1)
+position = Vector2(-192, 0)
+
+[node name="PlayerSlot2" parent="." instance=ExtResource("1_x2rbb")]
+position = Vector2(0, -128)
+
+[node name="PlayerSlot3" parent="." instance=ExtResource("1_x2rbb")]
+position = Vector2(192, 0)
+
+[node name="PlayerSlot4" parent="." instance=ExtResource("1_x2rbb")]
+position = Vector2(0, 128)

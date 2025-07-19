@@ -10,7 +10,7 @@ public partial class PlayerSlot : Node2D, EntityAccessor
     {
         SetEntityNode(GetNodeOrNull<EntityNode>("EntityNode"));
     }
-
+    
     public void SetEntityNode(EntityNode EntityNode)
     {
         if (EntityNode == null)

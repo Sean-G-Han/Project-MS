@@ -6,6 +6,17 @@ public partial class World : Node2D
     {
         GD.Print("World is ready.");
 
+        PlayerCarousel playerCarousel = GetNode<PlayerCarousel>("PlayerCarousel");
+        playerCarousel.TurnClockwise();
+        playerCarousel.TurnClockwise();
+        playerCarousel.TurnClockwise();
+        playerCarousel.TurnClockwise();
+        playerCarousel.TurnClockwise();
+        playerCarousel.TurnClockwise();
+        playerCarousel.TurnClockwise();
+        //playerCarousel.TurnClockwise();
+
+        /*
         Entity[] entityScripts = [
             new Elf(),
             new Orc(),
@@ -21,5 +32,6 @@ public partial class World : Node2D
 
         CombatManager combatManager = new CombatManager(entities);
         AddChild(combatManager);
+        */
     }
 }
