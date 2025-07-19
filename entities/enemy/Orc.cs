@@ -1,6 +1,6 @@
 public class Orc : Entity
 {
-    public Orc() : base("Orc", EntityType.Enemy, new EntityStat(120, 6, 15, 8))
+    public Orc() : base("Orc", new EntityStat(120, 6, 15, 8))
     {
         AttackLogic = (target) =>
         {

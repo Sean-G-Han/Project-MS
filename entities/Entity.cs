@@ -1,23 +1,16 @@
 using Godot;
 using System;
 
-public enum EntityType
-{
-    Hero,
-    Enemy
-}
 public class Entity : EntityAccessor
 {
     public string Name { get; set; }
-    public EntityType Type { get; set; }
     public EntityStat Stats { get; set; }
     public Action<Entity> AttackLogic { get; set; }
     public Action<Entity> SupportLogic { get; set; }
 
-    public Entity(string name, EntityType type, EntityStat stats)
+    public Entity(string name, EntityStat stats)
     {
         Name = name;
-        Type = type;
         Stats = stats;
     }
 
@@ -29,7 +22,6 @@ public class Entity : EntityAccessor
     public void SetEntity(Entity entity)
     {
         Name = entity.Name;
-        Type = entity.Type;
         Stats = entity.Stats;
         AttackLogic = entity.AttackLogic;
         SupportLogic = entity.SupportLogic;

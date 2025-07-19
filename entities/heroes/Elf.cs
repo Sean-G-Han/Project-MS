@@ -2,7 +2,7 @@ using Godot;
 
 public class Elf : Entity
 {
-    public Elf() : base("Elf", EntityType.Hero, new EntityStat(100, 50, 15, 5))
+    public Elf() : base("Elf", new EntityStat(100, 50, 15, 5))
     {
         AttackLogic = (target) =>
         {
