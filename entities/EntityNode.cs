@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class EntityNode : Node2D, IReadableSpeed, IEntityAccessor
+public partial class EntityNode : Node2D, EntityAccessor
 {
     public Entity Entity { get; protected set; }
     public EntityNode()
@@ -39,6 +39,6 @@ public partial class EntityNode : Node2D, IReadableSpeed, IEntityAccessor
         {
             return "EntityNode->NULL";
         }
-        return "EntityNode->" + Entity.ToString();
+        return /*"EntityNode->" + */ Entity.ToString();
     }
 }

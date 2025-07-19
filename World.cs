@@ -19,7 +19,7 @@ public partial class World : Node2D
             entities[i].SetEntity(entityScripts[i]);
         }
 
-        TurnManager turnManager = new TurnManager(entities);
-        AddChild(turnManager);
+        CombatManager combatManager = new CombatManager(entities);
+        AddChild(combatManager);
     }
 }

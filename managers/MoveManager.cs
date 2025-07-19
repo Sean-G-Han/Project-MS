@@ -2,21 +2,26 @@ using Godot;
 
 public partial class MoveManager : Node
 {
-    public PlayerSlot AllySlot { get; private set; }
-    public PlayerSlot EnemySlot { get; private set; }
+    public EntityAccessor AllySlot { get; private set; }
+    public EntityAccessor EnemySlot { get; private set; }
 
     public override void _Ready()
     {
-        GD.Print("CombatManager: Ready");
+        var parent = GetParent();
+        if (parent is CombatManager combatManager)
+        {
+            combatManager.TurnStarted += StartTurn;
+        }
+        GD.Print("MoveManager: Ready");
     }
 
-    public MoveManager(IReadableSpeed allySlot = null, IReadableSpeed enemySlot = null)
+    public MoveManager(EntityAccessor allySlot, EntityAccessor enemySlot)
     {
         SetAllySlot(allySlot);
         SetEnemySlot(enemySlot);
     }
 
-    public void SetAllySlot(PlayerSlot allySlot)
+    public void SetAllySlot(EntityAccessor allySlot)
     {
         if (allySlot == null)
         {
@@ -27,7 +32,7 @@ public partial class MoveManager : Node
         GD.Print($"CombatManager: AllySlot set to {AllySlot}");
     }
 
-    public void SetEnemySlot(PlayerSlot enemySlot)
+    public void SetEnemySlot(EntityAccessor enemySlot)
     {
         if (enemySlot == null)
         {
@@ -48,15 +53,18 @@ public partial class MoveManager : Node
         // An entity can only be the Allly-Attacker, the Enemy-Attacker or the Ally-Supporter.
         if (entitySlot == AllySlot)
         {
-            EnemySlot.SetEntity(AllySlot.GetEntity().AttackLogic(EnemySlot.GetEntity()));
+            entitySlot.GetEntity().AttackLogic(EnemySlot.GetEntity());
+            GD.Print($"ACombatManager: {AllySlot} attacked {EnemySlot}");
         }
         else if (entitySlot == EnemySlot)
         {
-            EnemySlot.SetEntity(EnemySlot.GetEntity().AttackLogic(AllySlot.GetEntity()));
+            entitySlot.GetEntity().AttackLogic(AllySlot.GetEntity());
+            GD.Print($"BCombatManager: {EnemySlot} attacked {AllySlot}");
         }
         else
         {
-            AllySlot.SetEntity(AllySlot.GetEntity().SupportLogic(AllySlot.GetEntity()));
+            entitySlot.GetEntity().SupportLogic(AllySlot.GetEntity());
+            GD.Print($"CCombatManager: {entitySlot} supported {AllySlot}");
         }
     }
 }
