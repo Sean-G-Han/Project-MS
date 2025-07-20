@@ -39,6 +39,6 @@ public partial class EntityNode : Node2D, EntityAccessor
         {
             return "EntityNode->NULL";
         }
-        return /*"EntityNode->" + */ Entity.ToString();
+        return "EntityNode->" + Entity.ToString();
     }
 }

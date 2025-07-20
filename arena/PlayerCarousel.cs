@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Numerics;
 using Godot;
 
 public partial class PlayerCarousel : Node2D
@@ -10,22 +9,47 @@ public partial class PlayerCarousel : Node2D
      * Turns are buffered to ensure smooth transitions.
      */
 
-    Godot.Vector2 Left = new Godot.Vector2(-192, 0);
-    Godot.Vector2 Up = new Godot.Vector2(0, -128);
-    Godot.Vector2 Right = new Godot.Vector2(192, 0);
-    Godot.Vector2 Down = new Godot.Vector2(0, 128);
+    Vector2 Left = new Vector2(-192, 0);
+    Vector2 Up = new Vector2(0, -128);
+    Vector2 Right = new Vector2(192, 0);
+    Vector2 Down = new Vector2(0, 128);
     int NumberOfCWTurns = 0;
-    public Godot.Collections.Dictionary<Godot.Vector2, PlayerSlot> Directions;
+    public Godot.Collections.Dictionary<Vector2, PlayerSlot> Directions;
 
     public override void _Ready()
     {
-        Directions = new Godot.Collections.Dictionary<Godot.Vector2, PlayerSlot>
+        Directions = new Godot.Collections.Dictionary<Vector2, PlayerSlot>
         {
             { Left, GetChild<PlayerSlot>(0) },
             { Up, GetChild<PlayerSlot>(1) },
             { Right, GetChild<PlayerSlot>(2) },
             { Down, GetChild<PlayerSlot>(3) }
         };
+        for (int i = 0; i < Directions.Count; i++)
+        {
+            var key = Directions.Keys.ElementAt(i);
+            Directions[key].Position = key;
+        }
+    }
+
+    public void SetEntities(Entity[] entities)
+    {
+        if (entities.Length != 4)
+        {
+            GD.PrintErr("PlayerCarousel: Expected 4 entities, but got " + entities.Length);
+            return;
+        }
+
+        for (int i = 0; i < Directions.Count; i++)
+        {
+            var key = Directions.Keys.ElementAt(i);
+            Directions[key].SetEntity(entities[i].GetEntity());
+        }
+    }
+
+    public PlayerSlot[] GetPlayerSlots()
+    {
+        return Directions.Values.ToArray();
     }
 
     private void Turn()
@@ -75,12 +99,11 @@ public partial class PlayerCarousel : Node2D
     public void UpdatePlayerSlots()
     {
         int signalCount = 0;
-        GD.Print("PlayerCarousel: " + NumberOfCWTurns);
         for (int i = 0; i < Directions.Count; i++)
         {
             Tween tween = CreateTween();
             var key = Directions.Keys.ElementAt(i);
-            tween.TweenProperty(Directions[key], "position", key, 0.2f);
+            tween.TweenProperty(Directions[key], "position", key, 0.15f);
             tween.Finished += () =>
             {
                 signalCount++;
@@ -93,5 +116,10 @@ public partial class PlayerCarousel : Node2D
                 Turn();
             };
         }
+    }
+
+    public override string ToString()
+    {
+        return "=> " + string.Join(",\n=> ", Directions.Select(kv => $"{kv.Key}: {kv.Value}"));
     }
 }

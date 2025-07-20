@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://imrbeshd5xam"]
 
-[ext_resource type="Script" uid="uid://thkh45rg1pwr" path="res://areana/PlayerSlot.cs" id="1_fpw51"]
+[ext_resource type="Script" uid="uid://thkh45rg1pwr" path="res://arena/PlayerSlot.cs" id="1_fpw51"]
 [ext_resource type="PackedScene" uid="uid://b0wxhl8cgtewn" path="res://entities/entityNode.tscn" id="2_lrvvu"]
 
 [node name="PlayerSlot" type="Node2D"]

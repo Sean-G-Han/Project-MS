@@ -52,6 +52,6 @@ public partial class PlayerSlot : Node2D, EntityAccessor
         {
             return "PlayerSlot->NULL";
         }
-        return /* "PlayerSlot->" + */ EntityNode.ToString();
+        return "PlayerSlot->" + EntityNode.ToString();
     }
 }

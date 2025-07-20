@@ -7,14 +7,18 @@ public partial class World : Node2D
         GD.Print("World is ready.");
 
         PlayerCarousel playerCarousel = GetNode<PlayerCarousel>("PlayerCarousel");
-        playerCarousel.TurnClockwise();
-        playerCarousel.TurnClockwise();
-        playerCarousel.TurnClockwise();
-        playerCarousel.TurnClockwise();
-        playerCarousel.TurnClockwise();
-        playerCarousel.TurnClockwise();
-        playerCarousel.TurnClockwise();
-        //playerCarousel.TurnClockwise();
+        PlayerSlot enemySlot = GetNode<PlayerSlot>("EnemySlot");
+
+        Entity[] entities = [
+            new Entity("Enemy", new EntityStat(100, 10, 5, 3)),
+            new Entity("Player1", new EntityStat(100, 10, 5, 3)),
+            new Entity("Player2", new EntityStat(100, 10, 5, 3)),
+            new Entity("Player3", new EntityStat(100, 10, 5, 3)),
+            new Entity("Player4", new EntityStat(100, 10, 5, 3))
+        ];
+
+        CombatManager combatManager = new CombatManager(entities, playerCarousel, enemySlot);
+        AddChild(combatManager);
 
         /*
         Entity[] entityScripts = [
@@ -29,9 +33,6 @@ public partial class World : Node2D
             entities[i] = (PlayerSlot)GetChild(i);
             entities[i].SetEntity(entityScripts[i]);
         }
-
-        CombatManager combatManager = new CombatManager(entities);
-        AddChild(combatManager);
         */
     }
 }

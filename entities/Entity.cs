@@ -5,8 +5,8 @@ public class Entity : EntityAccessor
 {
     public string Name { get; set; }
     public EntityStat Stats { get; set; }
-    public Action<Entity> AttackLogic { get; set; }
-    public Action<Entity> SupportLogic { get; set; }
+    public Action<Entity> AttackLogic { get; set; } = entity => {};
+    public Action<Entity> SupportLogic { get; set; } = entity => {};
 
     public Entity(string name, EntityStat stats)
     {
