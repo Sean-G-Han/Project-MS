@@ -35,11 +35,15 @@ public partial class ArenaManager : Node
 
     public void TurnClockwise()
     {
+        GetParent<CombatManager>().EmitSignal("UpdatePlayerSlot", PlayerCarousel.Directions[PlayerCarousel.Down]);
         PlayerCarousel.TurnClockwise();
+        GD.Print("ArenaManager: PlayerCarousel has turned RIGHT");
     }
 
     public void TurnCounterClockwise()
     {
+        GetParent<CombatManager>().EmitSignal("UpdatePlayerSlot", PlayerCarousel.Directions[PlayerCarousel.Up]);
         PlayerCarousel.TurnCounterClockwise();
+        GD.Print("ArenaManager: PlayerCarousel has turned LEFT");
     }
 }

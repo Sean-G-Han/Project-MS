@@ -45,10 +45,6 @@ public partial class TurnManager : Node
     {
         SetProcess(true);
         GD.Print("TurnManager: Ready");
-        GetParent<CombatManager>().TurnEnded += () =>
-        {
-            GD.Print("TurnManager: Turn ended signal received.");
-        };
     }
 
     public override void _Process(double delta)

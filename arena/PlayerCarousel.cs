@@ -9,10 +9,10 @@ public partial class PlayerCarousel : Node2D
      * Turns are buffered to ensure smooth transitions.
      */
 
-    Vector2 Left = new Vector2(-128, 0);
-    Vector2 Up = new Vector2(0, -128);
-    Vector2 Right = new Vector2(192, 0);
-    Vector2 Down = new Vector2(0, 128);
+    public Vector2 Left { get; private set; } = new Vector2(-128, 0);
+    public Vector2 Up { get; private set; } = new Vector2(0, -128);
+    public Vector2 Right { get; private set; } = new Vector2(192, 0);
+    public Vector2 Down { get; private set; } = new Vector2(0, 128);
     int NumberOfCWTurns = 0;
     public Godot.Collections.Dictionary<Vector2, PlayerSlot> Directions;
 
@@ -72,6 +72,7 @@ public partial class PlayerCarousel : Node2D
             Directions[Up] = temp;
             UpdatePlayerSlots();
         }
+        GD.Print("PlayerCarousel: has turned " + NumberOfCWTurns + " left");
     }
 
     public void TurnClockwise()

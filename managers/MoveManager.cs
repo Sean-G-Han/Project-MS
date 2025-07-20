@@ -13,6 +13,7 @@ public partial class MoveManager : Node
             parent.TurnStarted += StartTurn;
         }
         GD.Print("MoveManager: Ready");
+        GetParent<CombatManager>().UpdatePlayerSlot += SetAllySlot;
     }
 
     public void SetAllySlot(EntityAccessor allySlot)
