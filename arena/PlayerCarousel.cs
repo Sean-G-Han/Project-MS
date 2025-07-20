@@ -9,7 +9,7 @@ public partial class PlayerCarousel : Node2D
      * Turns are buffered to ensure smooth transitions.
      */
 
-    Vector2 Left = new Vector2(-192, 0);
+    Vector2 Left = new Vector2(-128, 0);
     Vector2 Up = new Vector2(0, -128);
     Vector2 Right = new Vector2(192, 0);
     Vector2 Down = new Vector2(0, 128);

@@ -1,3 +1,5 @@
+using System;
+
 public partial class EntityStat
 {
     public int Health { get; set; } = 10;
@@ -17,11 +19,24 @@ public partial class EntityStat
     }
     public override string ToString()
     {
-        return $"[Health: {Health}, Speed: {Speed}, Attack: {Attack}, Defense: {Defense}]";
+        return $"[H:{Health}, S:{Speed}, A:{Attack}, D:{Defense}]";
     }
 
-    public string GetStatString()
+        public override bool Equals(object obj)
     {
-        return $"Health: {Health}\nSpeed: {Speed}\nAttack: {Attack}\nDefense: {Defense}";
+        if (obj is EntityStat otherStat)
+        {
+            return Health == otherStat.Health &&
+                   Speed == otherStat.Speed &&
+                   Attack == otherStat.Attack &&
+                   Defense == otherStat.Defense;
+        }
+        return false;
     }
+    
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Health, Speed, Attack, Defense);
+    }
+
 }

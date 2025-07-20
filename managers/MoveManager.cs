@@ -7,10 +7,10 @@ public partial class MoveManager : Node
 
     public override void _Ready()
     {
-        var parent = GetParent();
-        if (parent is CombatManager combatManager)
+        var parent = GetParent<CombatManager>();
+        if (parent != null)
         {
-            combatManager.TurnStarted += StartTurn;
+            parent.TurnStarted += StartTurn;
         }
         GD.Print("MoveManager: Ready");
     }
@@ -23,7 +23,7 @@ public partial class MoveManager : Node
             return;
         }
         AllySlot = allySlot;
-        GD.Print($"CombatManager: AllySlot set to {AllySlot}");
+        GD.Print($"MoveManager: AllySlot set to {AllySlot}");
     }
 
     public void SetEnemySlot(EntityAccessor enemySlot)
@@ -44,14 +44,13 @@ public partial class MoveManager : Node
             GD.PrintErr("Cannot start turn for a null PlayerSlot.");
             return;
         }
-        GD.Print($"MoveManager: Starting turn for {entitySlot}");
         // An entity can only be the Ally-Attacker, the Enemy-Attacker or the Ally-Supporter.
-        if (entitySlot == AllySlot)
+        if (entitySlot.Equals(AllySlot))
         {
             entitySlot.GetEntity().AttackLogic(EnemySlot.GetEntity());
             GD.Print($"MoveManager: {AllySlot} attacked {EnemySlot}");
         }
-        else if (entitySlot == EnemySlot)
+        else if (entitySlot.Equals(EnemySlot))
         {
             entitySlot.GetEntity().AttackLogic(AllySlot.GetEntity());
             GD.Print($"MoveManager: {EnemySlot} attacked {AllySlot}");
@@ -61,5 +60,6 @@ public partial class MoveManager : Node
             entitySlot.GetEntity().SupportLogic(AllySlot.GetEntity());
             GD.Print($"MoveManager: {entitySlot} supported {AllySlot}");
         }
+        GetParent<CombatManager>().EmitSignal("TurnEnded");
     }
 }

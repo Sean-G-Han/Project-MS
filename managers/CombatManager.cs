@@ -4,6 +4,10 @@ public partial class CombatManager : Node
 {
     [Signal]
     public delegate void TurnStartedEventHandler(PlayerSlot entitySlot);
+    [Signal]
+    public delegate void TurnEndedEventHandler();
+    [Signal]
+    public delegate void UpdatePlayerSlotEventHandler(PlayerSlot heroSlot);
     public TurnManager TurnManager { get; private set; }
     public MoveManager MoveManager { get; private set; }
     public ArenaManager ArenaManager { get; private set; }
@@ -11,6 +15,8 @@ public partial class CombatManager : Node
     public override void _Ready()
     {
         GD.Print("CombatManager: Ready");
+        TurnStarted += (entitySlot) => GD.Print("CombatManager: Turn started for " + entitySlot);
+        TurnEnded += () => GD.Print("CombatManager: Turn ended.");
     }
 
     public CombatManager(Entity[] entities, PlayerCarousel playerCarousel, PlayerSlot enemy)
@@ -36,8 +42,8 @@ public partial class CombatManager : Node
 
         // Initialize MoveManager
         MoveManager = new MoveManager();
-        MoveManager.SetEnemySlot(entities[0]);
-        MoveManager.SetAllySlot(entities[1]);
+        MoveManager.SetEnemySlot(allPlayers[0]);
+        MoveManager.SetAllySlot(allPlayers[3]);
         AddChild(MoveManager);
     }
 }

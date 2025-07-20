@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 
 public partial class EntityTurn : RefCounted
@@ -26,6 +27,8 @@ public partial class EntityTurn : RefCounted
 
 public partial class TurnManager : Node
 {
+
+    private bool _isWaiting = false;
     public Godot.Collections.Array<EntityTurn> Entities { get; private set; }
 
     public TurnManager(EntityAccessor[] entities)
@@ -42,9 +45,31 @@ public partial class TurnManager : Node
     {
         SetProcess(true);
         GD.Print("TurnManager: Ready");
+        GetParent<CombatManager>().TurnEnded += () =>
+        {
+            GD.Print("TurnManager: Turn ended signal received.");
+        };
     }
 
     public override void _Process(double delta)
+    {
+        if (_isWaiting)
+        {
+            GD.Print("TurnManager: Waiting for async operation to complete.");
+            return;
+        }
+
+        StartCoroutine(delta);
+    }
+
+    async void StartCoroutine(double delta)
+    {
+        _isWaiting = true;
+        await SomeAsyncOperation(delta);
+        _isWaiting = false;
+    }
+
+    private async Task SomeAsyncOperation(double delta = 0.1)
     {
         if (Entities.Count == 0)
         {
@@ -58,7 +83,12 @@ public partial class TurnManager : Node
             if (charTurn.UpdateTurnProgress(delta))
             {
                 GD.Print($"TurnManager: {charTurn.E} is ready to act.");
-                GetParent<CombatManager>().EmitSignal("TurnStarted", (PlayerSlot) charTurn.E);
+                var turnEndedAwaiter = ToSignal(GetParent<CombatManager>(), "TurnEnded");
+
+                GetParent<CombatManager>().EmitSignal("TurnStarted", (PlayerSlot)charTurn.E);
+
+                await turnEndedAwaiter;
+                GD.Print($"TurnManager: {charTurn.E} has finished its turn.");
                 charTurn.ResetTurnProgress();
             }
         }

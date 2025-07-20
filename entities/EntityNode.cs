@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class EntityNode : Node2D, EntityAccessor
@@ -39,6 +40,20 @@ public partial class EntityNode : Node2D, EntityAccessor
         {
             return "EntityNode->NULL";
         }
-        return "EntityNode->" + Entity.ToString();
+        return Entity.ToString();
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is EntityNode otherEntity)
+        {
+            return Entity.Equals(otherEntity.Entity);
+        }
+        return false;
+    }
+    
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Entity);
     }
 }

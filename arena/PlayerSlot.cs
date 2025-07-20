@@ -10,7 +10,7 @@ public partial class PlayerSlot : Node2D, EntityAccessor
     {
         SetEntityNode(GetNodeOrNull<EntityNode>("EntityNode"));
     }
-    
+
     public void SetEntityNode(EntityNode EntityNode)
     {
         if (EntityNode == null)
@@ -52,6 +52,19 @@ public partial class PlayerSlot : Node2D, EntityAccessor
         {
             return "PlayerSlot->NULL";
         }
-        return "PlayerSlot->" + EntityNode.ToString();
+        return EntityNode.ToString();
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is PlayerSlot otherSlot)
+        {
+            return EntityNode.Equals(otherSlot.EntityNode);
+        }
+        return false;
+    }
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(EntityNode);
     }
 }
