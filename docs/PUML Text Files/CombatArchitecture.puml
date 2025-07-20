@@ -1,0 +1,25 @@
+@startuml
+
+class CombatManager {
+TurnStartEventHandler
+TurnEndEventHandler
+}
+class ArenaManager {
+TurnClockwise()
+TurnCounterClockwise()
+}
+class TurnManager
+class MoveManager {
+StartTurn(PlayerSlot)
+}
+class PlayerCarousel
+
+CombatManager *-down- ArenaManager : Init >
+CombatManager *-down- TurnManager : Init >
+CombatManager *-down- MoveManager : Init >
+ArenaManager *-down- PlayerCarousel : Controls >
+
+TurnManager -left-> MoveManager : Informs whose turn it is
+TurnManager <-right- MoveManager : Informs turn is over
+
+@enduml
