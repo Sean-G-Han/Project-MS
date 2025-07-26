@@ -15,10 +15,6 @@ run/main_scene="uid://b4go627d7cqft"
 config/features=PackedStringArray("4.4", "C#", "Mobile")
 config/icon="res://icon.svg"
 
-[display]
-
-window/stretch/scale=0.6
-
 [dotnet]
 
 project/assembly_name="ProjectMS"
@@ -30,4 +26,5 @@ pointing/emulate_mouse_from_touch=false
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"

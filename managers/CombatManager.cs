@@ -15,8 +15,6 @@ public partial class CombatManager : Node
     public override void _Ready()
     {
         GD.Print("CombatManager: Ready");
-        TurnStarted += (entitySlot) => GD.Print("CombatManager: Turn started for " + entitySlot);
-        TurnEnded += () => GD.Print("CombatManager: Turn ended.");
     }
 
     public CombatManager(Entity[] entities, PlayerCarousel playerCarousel, PlayerSlot enemy)

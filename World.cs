@@ -10,11 +10,11 @@ public partial class World : Node2D
         PlayerSlot enemySlot = GetNode<PlayerSlot>("EnemySlot");
 
         Entity[] entities = [
-            new Entity("Enemy", new EntityStat(100, 10, 5, 3)),
-            new Entity("Player1", new EntityStat(100, 10, 5, 3)),
-            new Entity("Player2", new EntityStat(100, 10, 5, 3)),
-            new Entity("Player3", new EntityStat(100, 10, 5, 3)),
-            new Entity("Player4", new EntityStat(100, 10, 5, 3))
+            Orc.Create(),
+            Goblin.Create(),
+            Goblin.Create(),
+            Goblin.Create(),
+            Goblin.Create(),
         ];
 
         CombatManager combatManager = new CombatManager(entities, playerCarousel, enemySlot);

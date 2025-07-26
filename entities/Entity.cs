@@ -4,8 +4,8 @@ public class Entity : EntityAccessor
 {
     public string Name { get; set; }
     public EntityStat Stats { get; set; }
-    public Action<Entity> AttackLogic { get; set; } = entity => { };
-    public Action<Entity> SupportLogic { get; set; } = entity => { };
+    public Func<Entity, Entity> AttackLogic { get; set; } = entity => { return entity; };
+    public Func<Entity, Entity> SupportLogic { get; set; } = entity => { return entity; };
 
     public Entity(string name, EntityStat stats)
     {

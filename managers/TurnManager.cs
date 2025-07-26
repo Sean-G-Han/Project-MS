@@ -78,7 +78,7 @@ public partial class TurnManager : Node
             var charTurn = Entities[i];
             if (charTurn.UpdateTurnProgress(delta))
             {
-                GD.Print($"TurnManager: {charTurn.E} is ready to act.");
+                GD.Print($"\nTurnManager: {charTurn.E} is ready to act.");
                 var turnEndedAwaiter = ToSignal(GetParent<CombatManager>(), "TurnEnded");
 
                 GetParent<CombatManager>().EmitSignal("TurnStarted", (PlayerSlot)charTurn.E);
@@ -86,10 +86,8 @@ public partial class TurnManager : Node
                 await turnEndedAwaiter;
                 GD.Print($"TurnManager: {charTurn.E} has finished its turn.");
                 charTurn.ResetTurnProgress();
+                Entities.Shuffle();
             }
         }
-
-        Entities.Shuffle();
     }
-
 }

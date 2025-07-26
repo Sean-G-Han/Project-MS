@@ -7,7 +7,6 @@
 script = ExtResource("1_cen6p")
 
 [node name="PlayerSlot" parent="." instance=ExtResource("1_x2rbb")]
-modulate = Color(0, 1, 1, 1)
 position = Vector2(-128, 0)
 
 [node name="PlayerSlot2" parent="." instance=ExtResource("1_x2rbb")]

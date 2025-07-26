@@ -4,9 +4,31 @@ using Godot;
 public partial class EntityNode : Node2D, EntityAccessor
 {
     public Entity Entity { get; protected set; }
+
+    public RichTextLabel StatsDisplay;
     public EntityNode()
     {
         // Keep Godot Happy
+    }
+
+    public override void _Ready()
+    {
+        StatsDisplay = GetNode<RichTextLabel>("StatsDisplay");
+    }
+
+    public void UpdateText()
+    {
+        if (StatsDisplay == null)
+        {
+            GD.PrintErr("StatsDisplay is not set in EntityNode.");
+            return;
+        }
+        if (Entity == null)
+        {
+            StatsDisplay.Text = "No Entity set.";
+            return;
+        }
+        StatsDisplay.Text = Entity.ToString();
     }
 
     public void SetEntity(Entity entity)
@@ -17,6 +39,7 @@ public partial class EntityNode : Node2D, EntityAccessor
             return;
         }
         Entity = entity;
+        UpdateText();
     }
 
     public Entity GetEntity()
