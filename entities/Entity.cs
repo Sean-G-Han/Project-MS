@@ -1,7 +1,9 @@
 using System;
+using Godot;
 
-public class Entity : EntityAccessor
+public class Entity
 {
+    public delegate void EntityUpdatedEventHandler();
     public string Name { get; set; }
     public EntityStat Stats { get; set; }
     public Func<Entity, Entity> AttackLogic { get; set; } = entity => { return entity; };
@@ -11,19 +13,6 @@ public class Entity : EntityAccessor
     {
         Name = name;
         Stats = stats;
-    }
-
-    public Entity GetEntity()
-    {
-        return this;
-    }
-
-    public void SetEntity(Entity entity)
-    {
-        Name = entity.Name;
-        Stats = entity.Stats;
-        AttackLogic = entity.AttackLogic;
-        SupportLogic = entity.SupportLogic;
     }
 
     public override string ToString()

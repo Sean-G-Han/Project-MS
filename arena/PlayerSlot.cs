@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 
-public partial class PlayerSlot : Node2D, EntityAccessor
+public partial class PlayerSlot : Node2D, EntityAccessor<PlayerSlot>
 {
     // The player slot can hold a reference to an EntityNode
     public EntityNode EntityNode { get; private set; }
@@ -39,6 +39,16 @@ public partial class PlayerSlot : Node2D, EntityAccessor
             return null;
         }
         return EntityNode.GetEntity();
+    }
+
+    public void Attack(PlayerSlot entity)
+    {
+        EntityNode.Attack(entity.EntityNode);
+    }
+
+    public void Support(PlayerSlot entity)
+    {
+        EntityNode.Support(entity.EntityNode);
     }
 
     public int GetSpeed()

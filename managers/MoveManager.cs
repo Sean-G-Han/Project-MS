@@ -48,35 +48,17 @@ public partial class MoveManager : Node
         // An entity can only be the Ally-Attacker, the Enemy-Attacker or the Ally-Supporter.
         if (entitySlot.Equals(AllySlot))
         {
-            var entity = entitySlot.GetEntity();
-            if (entity == null)
-            {
-                GD.PrintErr("AllySlot has no entity set.");
-                return;
-            }
-            EnemySlot.SetEntity(entity.AttackLogic(EnemySlot.GetEntity()));
+            entitySlot.Attack((PlayerSlot) EnemySlot);
             GD.Print($"MoveManager: {AllySlot} attacked {EnemySlot}");
         }
         else if (entitySlot.Equals(EnemySlot))
         {
-            var entity = entitySlot.GetEntity();
-            if (entity == null)
-            {
-                GD.PrintErr("EnemySlot has no entity set.");
-                return;
-            }
-            AllySlot.SetEntity(entity.AttackLogic(AllySlot.GetEntity()));
+            entitySlot.Attack((PlayerSlot) AllySlot);
             GD.Print($"MoveManager: {EnemySlot} attacked {AllySlot}");
         }
         else
         {
-            var entity = entitySlot.GetEntity();
-            if (entity == null)
-            {
-                GD.PrintErr("EntitySlot has no entity set.");
-                return;
-            }
-            AllySlot.SetEntity(entity.SupportLogic(AllySlot.GetEntity()));
+            entitySlot.Support((PlayerSlot) AllySlot);
             GD.Print($"MoveManager: {entitySlot} supported {AllySlot}");
         }
         GetParent<CombatManager>().EmitSignal("TurnEnded");

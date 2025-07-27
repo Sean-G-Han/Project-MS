@@ -1,15 +1,11 @@
 using System;
 using Godot;
 
-public partial class EntityNode : Node2D, EntityAccessor
+public partial class EntityNode : Node2D, EntityAccessor<EntityNode>
 {
     public Entity Entity { get; protected set; }
 
     public RichTextLabel StatsDisplay;
-    public EntityNode()
-    {
-        // Keep Godot Happy
-    }
 
     public override void _Ready()
     {
@@ -18,6 +14,7 @@ public partial class EntityNode : Node2D, EntityAccessor
 
     public void UpdateText()
     {
+        GD.Print("Updating EntityNode text.");
         if (StatsDisplay == null)
         {
             GD.PrintErr("StatsDisplay is not set in EntityNode.");
@@ -50,6 +47,16 @@ public partial class EntityNode : Node2D, EntityAccessor
             return null;
         }
         return Entity;
+    }
+
+    public void Attack(EntityNode enemy)
+    {
+        enemy.SetEntity(Entity.AttackLogic(enemy.Entity));
+    }
+
+    public void Support(EntityNode ally)
+    {
+        ally.SetEntity(Entity.SupportLogic(ally.Entity));
     }
 
     public int GetSpeed()

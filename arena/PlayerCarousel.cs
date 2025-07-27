@@ -43,7 +43,7 @@ public partial class PlayerCarousel : Node2D
         for (int i = 0; i < Directions.Count; i++)
         {
             var key = Directions.Keys.ElementAt(i);
-            Directions[key].SetEntity(entities[i].GetEntity());
+            Directions[key].SetEntity(entities[i]);
         }
     }
 
@@ -72,7 +72,6 @@ public partial class PlayerCarousel : Node2D
             Directions[Up] = temp;
             UpdatePlayerSlots();
         }
-        GD.Print("PlayerCarousel: has turned " + NumberOfCWTurns + " left");
     }
 
     public void TurnClockwise()

@@ -1,5 +1,9 @@
+using Godot;
+
 public class Goblin : IEntityCreators
 {
+    private static readonly PackedScene AnimatorScene = (PackedScene)ResourceLoader.Load("res://entities/animation/Animator.tscn");
+
     public static int Id = 1;
     public static Entity Create()
     {
@@ -17,5 +21,11 @@ public class Goblin : IEntityCreators
                 return e;
             }
         };
+    }
+
+    public static Animator GetAnimator()
+    {
+        var instance = (Animator)AnimatorScene.Instantiate();
+        return instance;
     }
 }
