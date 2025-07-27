@@ -1,15 +1,19 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 
 public partial class EntityNode : Node2D, EntityAccessor<EntityNode>
 {
     public Entity Entity { get; protected set; }
 
+    public Animator Animator { get; private set; }
+
     public RichTextLabel StatsDisplay;
 
     public override void _Ready()
     {
         StatsDisplay = GetNode<RichTextLabel>("StatsDisplay");
+        UpdateText();
     }
 
     public void UpdateText()
@@ -36,7 +40,6 @@ public partial class EntityNode : Node2D, EntityAccessor<EntityNode>
             return;
         }
         Entity = entity;
-        UpdateText();
     }
 
     public Entity GetEntity()
@@ -49,14 +52,33 @@ public partial class EntityNode : Node2D, EntityAccessor<EntityNode>
         return Entity;
     }
 
-    public void Attack(EntityNode enemy)
+    public void SetAnimator(Animator animator)
     {
-        enemy.SetEntity(Entity.AttackLogic(enemy.Entity));
+        if (animator == null)
+        {
+            GD.PrintErr("Cannot set a null Animator.");
+            return;
+        }
+        AddChild(animator);
+        Animator = animator;
     }
 
-    public void Support(EntityNode ally)
+    public async Task Attack(EntityNode enemy)
     {
+        var animationEndedAwaiter = ToSignal(Animator, "AnimationEnded");
+        Animator.PlayAttackAnimation();
+        await animationEndedAwaiter;
+        enemy.SetEntity(Entity.AttackLogic(enemy.Entity));
+        enemy.UpdateText();
+    }
+
+    public async Task Support(EntityNode ally)
+    {
+        var animationEndedAwaiter = ToSignal(Animator, "AnimationEnded");
+        Animator.PlaySupportAnimation();
+        await animationEndedAwaiter;
         ally.SetEntity(Entity.SupportLogic(ally.Entity));
+        ally.UpdateText();
     }
 
     public int GetSpeed()

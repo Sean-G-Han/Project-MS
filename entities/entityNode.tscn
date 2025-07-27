@@ -7,6 +7,6 @@ script = ExtResource("1_jm4vq")
 
 [node name="StatsDisplay" type="RichTextLabel" parent="."]
 offset_left = -64.0
-offset_top = 64.0
+offset_top = 32.0
 offset_right = 64.0
-offset_bottom = 192.0
+offset_bottom = 160.0

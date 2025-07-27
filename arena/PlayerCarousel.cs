@@ -32,7 +32,7 @@ public partial class PlayerCarousel : Node2D
         }
     }
 
-    public void SetEntities(Entity[] entities)
+    public void SetEntityNodes(EntityNode[] entities)
     {
         if (entities.Length != 4)
         {
@@ -43,7 +43,7 @@ public partial class PlayerCarousel : Node2D
         for (int i = 0; i < Directions.Count; i++)
         {
             var key = Directions.Keys.ElementAt(i);
-            Directions[key].SetEntity(entities[i]);
+            Directions[key].SetEntityNode(entities[i]);
         }
     }
 

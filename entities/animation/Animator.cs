@@ -3,6 +3,9 @@ using System;
 
 public partial class Animator : Node2D
 {
+    [Signal]
+    public delegate void AnimationEndedEventHandler(string animName);
+
     public AnimationPlayer animPlayer;
     public override void _Ready()
     {
@@ -22,6 +25,7 @@ public partial class Animator : Node2D
             GD.PrintErr("Animator: AnimationPlayer does not have 'Support' animation.");
             return;
         }
+        PlayIdleAnimation();
     }
 
     public void PlayAttackAnimation()
@@ -34,6 +38,15 @@ public partial class Animator : Node2D
         animPlayer.Play("Attack");
     }
 
+    public void PlaySupportAnimation()
+    {
+        if (animPlayer == null)
+        {
+            GD.PrintErr("Animator: AnimationPlayer node not found.");
+            return;
+        }
+        animPlayer.Play("Support");
+    }
     public void PlayIdleAnimation()
     {
         if (animPlayer == null)
@@ -42,5 +55,10 @@ public partial class Animator : Node2D
             return;
         }
         animPlayer.Play("Idle");
+    }
+
+    public void _on_animation_player_animation_finished(string animName)
+    {
+        EmitSignal(nameof(AnimationEnded), animName);
     }
 }

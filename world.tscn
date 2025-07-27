@@ -8,7 +8,7 @@
 script = ExtResource("1_f3sb7")
 
 [node name="PlayerCarousel" parent="." instance=ExtResource("2_fj7yv")]
-position = Vector2(256, 384)
+position = Vector2(256, 448)
 
 [node name="EnemySlot" parent="." instance=ExtResource("3_tlwt5")]
-position = Vector2(896, 384)
+position = Vector2(960, 448)

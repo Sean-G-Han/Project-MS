@@ -1,15 +1,12 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 
 public partial class PlayerSlot : Node2D, EntityAccessor<PlayerSlot>
 {
     // The player slot can hold a reference to an EntityNode
     public EntityNode EntityNode { get; private set; }
-    public override void _Ready()
-    {
-        SetEntityNode(GetNodeOrNull<EntityNode>("EntityNode"));
-    }
 
     public void SetEntityNode(EntityNode EntityNode)
     {
@@ -19,6 +16,7 @@ public partial class PlayerSlot : Node2D, EntityAccessor<PlayerSlot>
             return;
         }
         this.EntityNode = EntityNode;
+        AddChild(EntityNode);
     }
 
     public void SetEntity(Entity entity)
@@ -41,14 +39,14 @@ public partial class PlayerSlot : Node2D, EntityAccessor<PlayerSlot>
         return EntityNode.GetEntity();
     }
 
-    public void Attack(PlayerSlot entity)
+    public async Task Attack(PlayerSlot entity)
     {
-        EntityNode.Attack(entity.EntityNode);
+        await EntityNode.Attack(entity.EntityNode);
     }
 
-    public void Support(PlayerSlot entity)
+    public async Task Support(PlayerSlot entity)
     {
-        EntityNode.Support(entity.EntityNode);
+        await EntityNode.Support(entity.EntityNode);
     }
 
     public int GetSpeed()

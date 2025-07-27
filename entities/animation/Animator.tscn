@@ -9,4 +9,7 @@ script = ExtResource("1_8wkqn")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
 texture = ExtResource("1_y4d6h")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

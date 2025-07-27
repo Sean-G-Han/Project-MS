@@ -2,13 +2,14 @@ using Godot;
 
 public class Orc : IEntityCreators
 {
-    private static readonly PackedScene AnimatorScene = (PackedScene)ResourceLoader.Load("res://entities/animation/Animator.tscn");
+    private static readonly PackedScene AnimatorScene = (PackedScene)ResourceLoader.Load("res://entities/animation/TestAnimator.tscn");
+    private static readonly PackedScene EntityNodeScene = (PackedScene)ResourceLoader.Load("res://entities/EntityNode.tscn");
     public static int Id = 1;
-    public static Entity Create()
+    public static EntityNode Create()
     {
         var stats = new EntityStat(1000, 20, 50, 50);
 
-        return new Entity("Orc" + Id++, stats)
+        var entity = new Entity("Orc" + Id++, stats)
         {
             AttackLogic = (e) =>
             {
@@ -20,11 +21,10 @@ public class Orc : IEntityCreators
                 return e;
             }
         };
-
-    }
-    public static Animator GetAnimator()
-    {
-        var instance = (Animator)AnimatorScene.Instantiate();
-        return instance;
+        var entityNode = (EntityNode)EntityNodeScene.Instantiate();
+        entityNode.SetEntity(entity);
+        var animator = (Animator)AnimatorScene.Instantiate();
+        entityNode.SetAnimator(animator);
+        return entityNode;
     }
 }

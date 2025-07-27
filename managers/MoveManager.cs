@@ -38,7 +38,7 @@ public partial class MoveManager : Node
         GD.Print($"MoveManager: EnemySlot set to {EnemySlot}");
     }
 
-    public void StartTurn(PlayerSlot entitySlot)
+    public async void StartTurn(PlayerSlot entitySlot)
     {
         if (entitySlot == null)
         {
@@ -48,17 +48,17 @@ public partial class MoveManager : Node
         // An entity can only be the Ally-Attacker, the Enemy-Attacker or the Ally-Supporter.
         if (entitySlot.Equals(AllySlot))
         {
-            entitySlot.Attack((PlayerSlot) EnemySlot);
+            await entitySlot.Attack((PlayerSlot)EnemySlot);
             GD.Print($"MoveManager: {AllySlot} attacked {EnemySlot}");
         }
         else if (entitySlot.Equals(EnemySlot))
         {
-            entitySlot.Attack((PlayerSlot) AllySlot);
+            await entitySlot.Attack((PlayerSlot) AllySlot);
             GD.Print($"MoveManager: {EnemySlot} attacked {AllySlot}");
         }
         else
         {
-            entitySlot.Support((PlayerSlot) AllySlot);
+            await entitySlot.Support((PlayerSlot) AllySlot);
             GD.Print($"MoveManager: {entitySlot} supported {AllySlot}");
         }
         GetParent<CombatManager>().EmitSignal("TurnEnded");

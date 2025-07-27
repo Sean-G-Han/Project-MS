@@ -9,7 +9,7 @@ public partial class World : Node2D
         PlayerCarousel playerCarousel = GetNode<PlayerCarousel>("PlayerCarousel");
         PlayerSlot enemySlot = GetNode<PlayerSlot>("EnemySlot");
 
-        Entity[] entities = [
+        EntityNode[] entities = [
             Orc.Create(),
             Goblin.Create(),
             Goblin.Create(),

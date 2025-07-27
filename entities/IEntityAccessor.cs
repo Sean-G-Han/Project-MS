@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 public interface EntityAccessor
 {
     int GetSpeed();
@@ -7,6 +9,6 @@ public interface EntityAccessor
 }
 public interface EntityAccessor<T> : EntityAccessor
 {
-    void Attack(T target);
-    void Support(T target);
+    Task Attack(T target);
+    Task Support(T target);
 }

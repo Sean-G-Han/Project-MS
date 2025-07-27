@@ -6,6 +6,8 @@ public partial class ArenaManager : Node
     public PlayerSlot Enemy { get; private set; }
     public TouchController TouchController { get; private set; }
 
+    public bool canSwipe = true;
+
     public ArenaManager(PlayerCarousel playerCarousel, PlayerSlot enemy)
     {
         PlayerCarousel = playerCarousel;
@@ -13,15 +15,15 @@ public partial class ArenaManager : Node
         TouchController = new TouchController();
     }
 
-    public void SetEntities(Entity[] entities)
+    public void SetCarousel(EntityNode[] entities)
     {
         if (entities.Length != 5)
         {
             GD.PrintErr("ArenaManager: Expected 5 entities, but got " + entities.Length);
             return;
         }
-        Enemy.SetEntity(entities[0]);
-        PlayerCarousel.SetEntities(entities[1..5]);
+        Enemy.SetEntityNode(entities[0]);
+        PlayerCarousel.SetEntityNodes(entities[1..5]);
     }
 
     public override void _Ready()
@@ -29,8 +31,20 @@ public partial class ArenaManager : Node
         GD.Print("ArenaManager: Ready");
         GD.Print("ArenaManager: PlayerCarousel is:\n" + PlayerCarousel);
         AddChild(TouchController);
-        TouchController.SwipeRight += (strength) => TurnClockwise();
-        TouchController.SwipeLeft += (strength) => TurnCounterClockwise();
+        var parent = GetParent<CombatManager>();
+        if (parent != null)
+        {
+            parent.TurnStarted += (e) => DisableSwipeControls();
+            parent.TurnEnded += () => EnableSwipeControls();
+        }
+        TouchController.SwipeRight += (strength) =>
+        {
+            if (canSwipe) { TurnClockwise(); }
+        };
+        TouchController.SwipeLeft += (strength) =>
+        {
+            if (canSwipe) { TurnCounterClockwise(); }
+        };
     }
 
     public void TurnClockwise()
@@ -45,5 +59,17 @@ public partial class ArenaManager : Node
         GetParent<CombatManager>().EmitSignal("UpdatePlayerSlot", PlayerCarousel.Directions[PlayerCarousel.Up]);
         PlayerCarousel.TurnCounterClockwise();
         GD.Print("ArenaManager: PlayerCarousel has turned LEFT");
+    }
+
+    public void DisableSwipeControls()
+    {
+        canSwipe = false;
+        GD.Print("ArenaManager: Swipe controls disabled.");
+    }
+
+    public void EnableSwipeControls()
+    {
+        canSwipe = true;
+        GD.Print("ArenaManager: Swipe controls enabled.");
     }
 }

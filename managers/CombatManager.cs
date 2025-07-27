@@ -17,7 +17,7 @@ public partial class CombatManager : Node
         GD.Print("CombatManager: Ready");
     }
 
-    public CombatManager(Entity[] entities, PlayerCarousel playerCarousel, PlayerSlot enemy)
+    public CombatManager(EntityNode[] entities, PlayerCarousel playerCarousel, PlayerSlot enemy)
     {
         if (entities.Length != 5)
         {
@@ -25,7 +25,7 @@ public partial class CombatManager : Node
             return;
         }
         ArenaManager = new ArenaManager(playerCarousel, enemy);
-        ArenaManager.SetEntities(entities);
+        ArenaManager.SetCarousel(entities);
         AddChild(ArenaManager);
 
         // Combine player slots with enemy slot

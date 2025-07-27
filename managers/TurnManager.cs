@@ -50,10 +50,7 @@ public partial class TurnManager : Node
     public override void _Process(double delta)
     {
         if (_isWaiting)
-        {
-            GD.Print("TurnManager: Waiting for async operation to complete.");
             return;
-        }
 
         StartCoroutine(delta);
     }
@@ -79,11 +76,11 @@ public partial class TurnManager : Node
             if (charTurn.UpdateTurnProgress(delta))
             {
                 GD.Print($"\nTurnManager: {charTurn.E} is ready to act.");
+
                 var turnEndedAwaiter = ToSignal(GetParent<CombatManager>(), "TurnEnded");
-
                 GetParent<CombatManager>().EmitSignal("TurnStarted", (PlayerSlot)charTurn.E);
-
                 await turnEndedAwaiter;
+
                 GD.Print($"TurnManager: {charTurn.E} has finished its turn.");
                 charTurn.ResetTurnProgress();
                 Entities.Shuffle();
